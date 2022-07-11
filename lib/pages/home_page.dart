@@ -86,35 +86,26 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                post.firstName,
-                style: const TextStyle(color: Colors.black, fontSize: 20),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                post.lastName,
-                style: const TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ],
+          Container(
+            margin: EdgeInsets.all(10),
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            child: post.imgUrl != null ? Image.network(
+              post.imgUrl!, fit: BoxFit.cover,) : const Image(
+              image: AssetImage('assets/images/img.png'), fit: BoxFit.cover,),
           ),
           const SizedBox(
-            height: 2,
+            height: 5,
           ),
-          Text(
-            post.date,
-            style: const TextStyle(color: Colors.black45, fontSize: 17),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          Text(
-            post.content,
-            style: const TextStyle(color: Colors.black54, fontSize: 18),
-          ),
+              Text(post.firstName,
+                style: const TextStyle(color: Colors.black, fontSize: 20),),
+              const SizedBox(height: 10,),
+          Text(post.date,
+            style: const TextStyle(color: Colors.black, fontSize: 20),),
+          const SizedBox(height: 10,),
+              Text(post.content,
+                style: const TextStyle(color: Colors.black, fontSize: 16),),
+
         ],
       ),
     );
