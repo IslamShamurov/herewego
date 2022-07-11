@@ -39,8 +39,8 @@ class _SignUpPageState extends State<SignUpPage> {
       isLoading = false;
     });
     if (user != null) {
-       Prefs.setData(StorageKey.uid, user.uid).then((value) {
-        Navigator.pushReplacementNamed(context, Homepage.id);
+      Prefs.saveUserId(user.uid).then((value) {
+        Navigator.pushReplacementNamed(context, HomePage.id);
       });
     } else {
       Utils.fireToast('Check all Information');

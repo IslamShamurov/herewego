@@ -1,28 +1,19 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs {
-  static SharedPreferences? _pref;
-
-  static Future<void> inIt() async {
-    _pref = await SharedPreferences.getInstance();
+  static Future<bool> saveUserId(String userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString('userId', userId);
   }
 
-  static Object? getData(StorageKey key) {
-    return _pref!.getString(key.name);
+  static Future<String?> loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('userId');
+    return token;
   }
 
-  static Future<void> removeData(StorageKey key) async {
-    await _pref!.remove(key.name);
-  }
-
-  static Future<void> setData(StorageKey key, Object value) async {
-    switch (key) {
-      case StorageKey.uid:
-        {
-          await _pref!.setString(StorageKey.uid.name, value as String);
-        }
-    }
+  static Future<bool> removeUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.remove('userId');
   }
 }
-
-enum StorageKey { uid }

@@ -28,8 +28,8 @@ class _SignInPageState extends State<SignInPage> {
       isLoading = true;
     });
     AuthService.signInUser(context, email, password).then((user) => {
-          _getFireBaseUser(user),
-        });
+      _getFireBaseUser(user),
+    });
   }
 
   void _getFireBaseUser(User? user)  {
@@ -37,8 +37,8 @@ class _SignInPageState extends State<SignInPage> {
       isLoading = false;
     });
     if (user != null) {
-       Prefs.setData(StorageKey.uid, user.uid).then((value) {
-        Navigator.pushReplacementNamed(context, Homepage.id);
+      Prefs.saveUserId(user.uid).then((value) {
+        Navigator.pushReplacementNamed(context, HomePage.id);
       });
     } else {
       Utils.fireToast('Check your email or password');

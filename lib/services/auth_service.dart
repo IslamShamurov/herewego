@@ -6,7 +6,7 @@ import 'package:herewego/services/prefs_service.dart';
 class AuthService {
   static final _auth = FirebaseAuth.instance;
 
-  // Login
+  // #LOGIN
   static Future<User?> signInUser(
       BuildContext context, String email, String password) async {
     try {
@@ -19,15 +19,13 @@ class AuthService {
     return null;
   }
 
-// Registration
-
+// #REGISTRATION
   static Future<User?> signUpUser(
       BuildContext context, String email, String password, String name) async {
     try {
       var authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      User? user = authResult.user;
-      print('$user');
+      final User? user = authResult.user;
       return user;
     } catch (e) {
       print(e);
@@ -35,11 +33,13 @@ class AuthService {
     return null;
   }
 
-  // Remove
-  static void signOutUser(BuildContext context) {
+// #REMOVE
+  static void signOutUser(BuildContext context) async {
     _auth.signOut();
-    Prefs.removeData(StorageKey.uid).then((value) {
-      Navigator.pushReplacementNamed(context, SignInPage.id);
-    });
+    Prefs.removeUserId().then(
+      (value) {
+        Navigator.pushReplacementNamed(context, SignInPage.id);
+      },
+    );
   }
 }
